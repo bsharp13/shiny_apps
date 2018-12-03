@@ -1,0 +1,7 @@
+<div class = "jumbotron text-container">
+  <div class = "mytitle">
+    <h1> 2019 Spare Time </h>
+    <h4> "When performance is measured, performance improves." - Thomas Monson </h4>
+  </div>
+</div>
+

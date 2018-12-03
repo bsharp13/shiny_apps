@@ -1,0 +1,46 @@
+body {
+  font-family: 'Assistant', sans-serif;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h4 {
+  font-style: italic;
+  margin-left: 25px;
+}
+
+label {
+  font-size: 10.5px;
+}
+
+p {
+  margin-left: 15px;
+}
+
+.well {
+  background-color: #FFFFFF;
+  border-left-width: 0;
+  border-bottom-width: 0;
+  border-top-width: 0;
+  border-right-width: 2;
+  box-shadow: none;
+}
+
+.mytitle {
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.jumbotron {
+  height: 200px;
+  margin-left: -20px;
+  margin-right: -20px;
+  background-color: #303030;
+  color: #ffffff;
+}
