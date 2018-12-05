@@ -40,6 +40,7 @@ yw_test <- test %>% pull(Write)
 
 # Math Scores
 #-------------------------------------------------------------------------------
+set.seed(314)
 my_train <- function(y, method) {
   mod <- train(
     x = X_train,
@@ -60,14 +61,55 @@ rf_math <- my_train(ym_train, 'ranger')
 lr_pred <- predict(lr_math, X_test)
 rf_pred <- predict(rf_math, X_test)
 
-RMSE(lr_pred, ym_test)
-RMSE(rf_pred, ym_test)
+math_scores <- c('LR' = RMSE(lr_pred, ym_test), 'RF' = RMSE(rf_pred, ym_test))
+math_mod <- ifelse(math_scores['LR'] <= math_scores['RF'], lr_math, rf_math)
 
+#-------------------------------------------------------------------------------
 
+# Reading Scores
+#-------------------------------------------------------------------------------
+set.seed(314)
 
+# Linear Regression
+lr_read <- my_train(yr_train, 'lm')
 
+# Random Forest
+rf_read <- my_train(yr_train, 'ranger')
 
+# Assess model performance
+lr_pred <- predict(lr_read, X_test)
+rf_pred <- predict(rf_read, X_test)
 
+read_scores <- c('LR' = RMSE(lr_pred, yr_test), 'RF' = RMSE(rf_pred, yr_test))
+read_mod <- ifelse(read_scores['LR'] <= read_scores['RF'], lr_read, rf_read)
+
+#-------------------------------------------------------------------------------
+
+# Reading Scores
+#-------------------------------------------------------------------------------
+set.seed(314)
+
+# Linear Regression
+lr_write <- my_train(yw_train, 'lm')
+
+# Random Forest
+rf_write <- my_train(yw_train, 'ranger')
+
+# Assess model performance
+lr_pred <- predict(lr_write, X_test)
+rf_pred <- predict(rf_write, X_test)
+
+write_scores <- c('LR' = RMSE(lr_pred, yw_test), 'RF' = RMSE(rf_pred, yw_test))
+write_mod <- 
+  ifelse(write_scores['LR'] <= write_scores['RF'], lr_write, rf_write)
+
+#-------------------------------------------------------------------------------
+
+# Save model objects
+#-------------------------------------------------------------------------------
+save(math_mod, file = 'MathModel.rda')
+save(read_mod, file = 'ReadModel.rda')
+save(write_mod, file = 'WriteModel.rda')
 
 
 
