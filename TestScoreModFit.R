@@ -13,6 +13,7 @@ colnames(scores) <-
 # EDA
 table(scores$Gender)
 table(scores$Race)
+table(scores$ParentEd)
 table(scores$Lunch)
 table(scores$Pre)
 
@@ -21,6 +22,7 @@ ggplot(scores, aes(x = Read)) + geom_histogram(binwidth = 5)
 ggplot(scores, aes(x = Write)) + geom_histogram(binwidth = 5)
 
 # Test/train split
+set.seed(314)
 trainrow <- createDataPartition(scores$Pre, p = 0.7, list = FALSE)
 train <- scores[trainrow, ]
 test <- scores[-trainrow, ]
@@ -62,7 +64,11 @@ lr_pred <- predict(lr_math, X_test)
 rf_pred <- predict(rf_math, X_test)
 
 math_scores <- c('LR' = RMSE(lr_pred, ym_test), 'RF' = RMSE(rf_pred, ym_test))
-math_mod <- ifelse(math_scores['LR'] <= math_scores['RF'], lr_math, rf_math)
+if (math_scores['LR'] <= math_scores['RF']) {
+  math_mod <- lr_math
+} else {
+  math_mod <- rf_math
+} 
 
 #-------------------------------------------------------------------------------
 
@@ -81,8 +87,11 @@ lr_pred <- predict(lr_read, X_test)
 rf_pred <- predict(rf_read, X_test)
 
 read_scores <- c('LR' = RMSE(lr_pred, yr_test), 'RF' = RMSE(rf_pred, yr_test))
-read_mod <- ifelse(read_scores['LR'] <= read_scores['RF'], lr_read, rf_read)
-
+if (read_scores['LR'] <= read_scores['RF']) {
+  read_mod <- lr_math
+} else {
+  read_mod <- rf_math
+} 
 #-------------------------------------------------------------------------------
 
 # Reading Scores
@@ -100,9 +109,11 @@ lr_pred <- predict(lr_write, X_test)
 rf_pred <- predict(rf_write, X_test)
 
 write_scores <- c('LR' = RMSE(lr_pred, yw_test), 'RF' = RMSE(rf_pred, yw_test))
-write_mod <- 
-  ifelse(write_scores['LR'] <= write_scores['RF'], lr_write, rf_write)
-
+if (write_scores['LR'] <= write_scores['RF']) {
+  write_mod <- lr_math
+} else {
+  write_mod <- rf_math
+} 
 #-------------------------------------------------------------------------------
 
 # Save model objects
