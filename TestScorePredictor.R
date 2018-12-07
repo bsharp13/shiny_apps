@@ -16,28 +16,42 @@ scores <- read_csv('~/Downloads/StudentsPerformance.csv')
 colnames(scores) <- 
   c('Gender', 'Race', 'ParentEd', 'Lunch', 'Pre', 'Math', 'Read', 'Write')
 
-select_scores <- scores %>% 
-  filter(
-    Gender == 'female',
-    Race == 'group B',
-    ParentEd == "bachelor's degree",
-    Lunch == 'standard'
-  )
+facet_options <- c(
+  'Gender' = 'gender', 
+  'Race' = 'race', 
+  'Parent Education' = 'parent_ed', 
+  'Lunch' = 'lunch'
+)
 
 # Plotting function
-my_density <- function(subject = 'math') {
+my_density <- function(subject = 'math', facet = 'gender') {
   
   if (subject == 'math') {
-    select_scores$Subject <- select_scores$Math
+    scores$Subject <- scores$Math
   } else if (subject == 'reading') {
-    select_scores$Subject <- select_scores$Read
+    scores$Subject <- scores$Read
   } else {
-    select_scores$Subject <- select_scores$Write
+    scores$Subject <- scores$Write
   }
   
-  select_scores %>% 
+  if (facet == 'gender') {
+    scores$Facet <- scores$Gender
+  } else if (facet == 'race') {
+    scores$Facet <- scores$Race
+  } else if (facet == 'parent_ed') {
+    scores$Facet <- scores$ParentEd
+  } else {
+    scores$Facet <- scores$Lunch
+  }
+  
+  scores %>% 
     ggplot(aes(x = Subject, color = Pre, fill = Pre)) +
-    geom_density(alpha = 0.6)
+    geom_density(alpha = 0.3) +
+    facet_wrap( ~ Facet) +
+    labs(y = '', x = 'Score') +
+    scale_fill_manual(values = c('#1B9E77', '#7570B3')) +
+    scale_color_manual(values = c('#1B9E77', '#7570B3')) +
+    theme_bw()
   
 }
 
@@ -75,8 +89,16 @@ ui <- fluidPage(
       )
     ),
     mainPanel(
+      h2('Score Distributions'),
+      selectInput(inputId = 'view_by', label = 'View by', facet_options),
+      br(), br(),
+      h4('Math'),
       plotOutput('mathplot'),
+      br(),
+      h4('Reading'),
       plotOutput('readplot'),
+      br(),
+      h4('Writing'),
       plotOutput('writeplot')
     )
   )
@@ -90,23 +112,17 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   observeEvent(input$predict, {
-    select_scores <- scores %>% 
-      filter(
-        Gender == input$gender,
-        Race == input$race,
-        ParentEd == input$parent_ed,
-        Lunch == input$lunch
-      )
+    x <- 1
   })
   
   output$mathplot <- renderPlot({
-    my_density('math')
+    my_density('math', input$view_by)
   })
   output$readplot <- renderPlot({
-    my_density('reading')
+    my_density('reading', input$view_by)
   })
   output$writeplot <- renderPlot({
-    my_density('writing')
+    my_density('writing', input$view_by)
   })
 }
 
