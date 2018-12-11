@@ -111,8 +111,40 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  observeEvent(input$predict, {
-    x <- 1
+  output$math_pred <- eventReactive(input$predict, {
+    predict(
+      math_mod,
+      new_data <- data_frame(
+        Gender = input$gender,
+        Race = input$race,
+        ParentEd = input$parent_ed,
+        Lunch = input$lunch
+      )
+    )
+  })
+  
+  output$read_pred <- eventReactive(input$predict, {
+    predict(
+      read_mod,
+      new_data <- data_frame(
+        Gender = input$gender,
+        Race = input$race,
+        ParentEd = input$parent_ed,
+        Lunch = input$lunch
+      )
+    )
+  })
+  
+  output$write_pred <- eventReactive(input$predict, {
+    predict(
+      write_mod,
+      new_data <- data_frame(
+        Gender = input$gender,
+        Race = input$race,
+        ParentEd = input$parent_ed,
+        Lunch = input$lunch
+      )
+    )
   })
   
   output$mathplot <- renderPlot({
