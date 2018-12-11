@@ -7,6 +7,11 @@ library(lubridate)
 
 # Prep
 #-------------------------------------------------------------------------------
+# Goals
+goal_read  <- 10000
+goal_run   <- 1000
+goal_music <- 10000
+
 # Read in data
 y2019 <- as.data.frame(read_csv('www/MeData.csv'))
 for (i in seq_along(y2019)) {
