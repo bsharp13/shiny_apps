@@ -24,7 +24,7 @@ month_labs <- format(ISOdate(2004, 1:12, 1), "%B")[1:month(today())]
 cur_month <- month_labs[month(today())]
 measure_labs <- c(
   'Running', 'Music', 'Reading', 'Finances', 'Mental Health' = 'Mental', 
-  'Eating Out' = 'Eating', 'Episodes Watched' = 'Episodes'
+  'Eating Out' = 'Eating', 'Episodes Watched' = 'Episodes', 'Learning'
 )
 
 # Identify good and bad behaviors
@@ -44,7 +44,8 @@ cutoffs <- data_frame(
   Finances = c(10, 25, 50, 100),
   Mental = c(2, 4, 6, 8),
   Eating = c(1, 2, 3, 4),
-  Episodes = c(3, 6, 9, 12)
+  Episodes = c(3, 6, 9, 12),
+  Learning = c(15, 30, 45, 60)
 )
 
 # Define functions
@@ -150,6 +151,11 @@ ui <- fluidPage(
         column(4, numericInput('episodes', 'Episodes', 0)),
         column(8, textInput('show', 'Main show', ''))
       ),
+      h3('Learning Time'),
+      fluidRow(
+        column(4, numericInput('learning', 'Time Learning', 0)),
+        column(8, textInput('subject', 'Subject', ''))
+      ),
       br(),
       fluidRow(
         p(actionButton("update", "Update Day"))
@@ -195,7 +201,8 @@ server <- function(input, output) {
     y2019[update_row, 'AteWhere']       <- input$ate_where
     y2019[update_row, 'Episodes']       <- input$episodes
     y2019[update_row, 'Show']           <- input$show
-    
+    y2019[update_row, 'Learning']       <- input$learning
+    y2019[update_row, 'Subject']        <- input$Subject
     
     # Update buckets
     y2019[update_row, 'RunningBucket']  <- 
@@ -212,6 +219,8 @@ server <- function(input, output) {
       update_bucket(input$ate_out, cutoffs[,'Eating'])
     y2019[update_row, 'EpisodesBucket'] <- 
       update_bucket(input$episodes, cutoffs[,'Episodes'])
+    y2019[update_row, 'LearningBucket'] <-
+      update_bucket(input$episodes, cutoffs[,'Learning'])
     
     # Rewrite csv of yearly values
     write.csv(y2019, 'www/MeData.csv', row.names = FALSE)
