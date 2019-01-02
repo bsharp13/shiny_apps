@@ -202,9 +202,15 @@ server <- function(input, output) {
     y2019[update_row, 'Episodes']       <- input$episodes
     y2019[update_row, 'Show']           <- input$show
     y2019[update_row, 'Learning']       <- input$learning
-    y2019[update_row, 'Subject']        <- input$Subject
+    y2019[update_row, 'Subject']        <- input$subject
     
     # Update buckets
+    for (i in seq_along(y2019)) {
+      if (str_detect(colnames(y2019)[i], 'Bucket')) {
+        y2019[,i] <- as.numeric(as.character(y2019[,i]))
+      }
+    }
+    
     y2019[update_row, 'RunningBucket']  <- 
       update_bucket(input$run, cutoffs[,'Running'])
     y2019[update_row, 'MusicBucket']    <- 
@@ -220,7 +226,13 @@ server <- function(input, output) {
     y2019[update_row, 'EpisodesBucket'] <- 
       update_bucket(input$episodes, cutoffs[,'Episodes'])
     y2019[update_row, 'LearningBucket'] <-
-      update_bucket(input$episodes, cutoffs[,'Learning'])
+      update_bucket(input$learning, cutoffs[,'Learning'])
+    
+    for (i in seq_along(y2019)) {
+      if (str_detect(colnames(y2019)[i], 'Bucket')) {
+        y2019[,i] <- as.factor(y2019[,i])
+      }
+    }
     
     # Rewrite csv of yearly values
     write.csv(y2019, 'www/MeData.csv', row.names = FALSE)
