@@ -216,8 +216,8 @@ server <- function(input, output) {
     y2019[update_row, 'MusicBucket']    <- 
       update_bucket(input$minutes, cutoffs[,'Music'])
     y2019[update_row, 'ReadingBucket']  <- 
-      update_bucket(input$run, cutoffs[,'Running'])
-    y2019[update_row, 'FinanceBucket']  <- 
+      update_bucket(input$run, cutoffs[,'Reading'])
+    y2019[update_row, 'FinancesBucket']  <- 
       update_bucket(input$amount, cutoffs[,'Finances'])
     y2019[update_row, 'MentalBucket']   <- 
       update_bucket(input$headache, cutoffs[,'Mental'])
