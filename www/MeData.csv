@@ -2,10 +2,10 @@ DayOfYear,DayOfYearOffset,Date,DayOfWeek,Week,Month,Running,RunShoe,RunRoute,Run
 1,2,1/1/19,2,0,1,5.09,Adizero,Treadmill,3,30,Seagull,3,50,Black Swan,3,0,None,1,7,New Years Bonding,4,0,None,1,0,None,1,25,Clustering,2
 2,3,1/2/19,3,0,1,5.02,Boost,Treadmill,3,50,Seagull,4,0,None,1,0,None,1,8,Better roommate than anticipated,5,0,None,1,0,None,1,0,None,1
 3,4,1/3/19,4,0,1,5.02,Adizero,Treadmill,3,45,Seagull,4,0,None,1,12.91,Food,2,5,Work,3,1,Mooyah,2,0,None,1,60,Object and Design,5
-4,5,1/4/19,5,0,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
-5,6,1/5/19,6,0,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
-6,7,1/6/19,7,0,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
-7,8,1/7/19,1,1,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
+4,5,1/4/19,5,0,1,5.02,Boost,Treadmill,3,30,Seagull,3,0,None,1,16.74,Gift for Jord,2,6,None,3,0,None,1,0,None,1,30,Object and Design,3
+5,6,1/5/19,6,0,1,0,None,None,1,30,Seagull,3,40,Black Swan,2,2.06,Food,1,8,Jennifer's Funeral,5,0,None,1,0,None,1,0,None,1
+6,7,1/6/19,7,0,1,0,None,None,1,0,None,1,0,None,1,0,None,1,9,Aaron Moving Home,5,0,None,1,1,Office,1,45,Object and Design,4
+7,8,1/7/19,1,1,1,5.1,Adizero,Treadmill,3,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
 8,9,1/8/19,2,1,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
 9,10,1/9/19,3,1,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
 10,11,1/10/19,4,1,1,0,NA,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1,0,NA,1
